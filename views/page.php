@@ -26,10 +26,16 @@
             {
                 text-transform: capitalize;
                 border: 2px solid black;
+                font-size: 100px;
             }
             .col-xs-12 table tr
             {
                 height: 100px;
+            }
+
+            .col-xs-12 table td a
+            {
+                font-size: 24px;
             }
         </style>
         <script type="text/javascript">
@@ -65,7 +71,18 @@
                         <?php for($i = 0; $i < 3; $i++): ?>
                             <tr>
                                 <?php for($j = 0; $j < 3; $j++): ?>
-                                    <td>Test</td>
+                                    <!--Displaying board with moves and links to
+                                     players move according to whose turn it is in session-->
+                                    <?php if($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] == "None"): ?>
+                                        <!--Displaying links as get variable that can be parsed to figure out what move was done-->
+                                        <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
+                                    <?php elseif($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] !== "None"): ?>
+                                        <td><?= $_SESSION["board"][$i][$j] ?></td>
+                                    <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] == "None"): ?>
+                                        <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
+                                    <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] !== "None"): ?>
+                                        <td><?= $_SESSION["board"][$i][$j] ?></td>
+                                    <?php endif; ?>
                                 <?php endfor; ?>
                             </tr>
                         <?php endfor; ?>
