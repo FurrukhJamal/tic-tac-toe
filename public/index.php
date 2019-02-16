@@ -7,21 +7,50 @@
 
     if(isset($_SESSION["board"]))
     {
-        print("set");
-        $_SESSION["board"] = [["None", "O", "None"],
-                            ["None", "O", "None"],
-                            ["None", "X", "None"]];
+        print_r($_SESSION);
+        //isgamefinished();
 
-        $_SESSION["turn"] = "O";
+        if(isset($_GET["move"]))
+        {
+            //split the string into array
+            $move = $_GET["move"];
+            $board = str_split($move);
+            $_SESSION["board"][$board[0]][$board[1]] = $_SESSION["turn"];
+            //change the players turn
+            if($_SESSION["turn"] == "X")
+            {
+                $_SESSION["turn"] = "O";
+            }
+            else
+            {
+                $_SESSION["turn"] = "X";
+            }
+            $result = isgamefinished();
+            print_r($result);
+            if($result["finished"]== true)
+            {
+                //Implement winning board
+                print("WONNNNNNNN");
+            }
+            else
+            {
+                redirect();
+            }
+
+            //redirect();
+        }
+
     }
     else
     {
-        //for when user visits site for the first time 
+        //for when user visits site for the first time
         $_SESSION["board"] = [["None", "None", "None"],
                             ["None", "None", "None"],
                             ["None", "None", "None"]];
 
         $_SESSION["turn"] = "X";
+
+
     }
 
     require("../views/page.php");
