@@ -13,6 +13,12 @@
                 text-transform: uppercase;
                 text-align: center;
             }
+            .winningline
+            {
+                background-color: yellow;
+                width: inherit;
+            }
+
 
             .col-xs-12 table
             {
@@ -27,6 +33,7 @@
                 text-transform: capitalize;
                 border: 2px solid black;
                 font-size: 100px;
+
             }
             .col-xs-12 table tr
             {
@@ -37,6 +44,18 @@
             {
                 font-size: 24px;
             }
+            #reset
+            {
+                margin: 20px auto 20px auto;
+                width: 100px;
+            }
+            #reset a
+            {
+                color: white;
+                text-decoration: none;
+            }
+
+
         </style>
         <script type="text/javascript">
             window.onload = function (){
@@ -54,6 +73,47 @@
                 td[8].style.borderBottom = "None";
                 td[8].style.borderRight = "None";
                 td[7].style.borderBottom = "None";
+
+                /*To apply css to winning line*/
+                var table = document.getElementsByTagName("table");
+                if(table[0].hasAttribute("position"))
+                {
+                    var position = table[0].getAttribute("position");
+                    var line_location = position.split("-");
+
+                    //checking if line is vertical,horizontal or a diagnol
+                    if(line_location[0] == "horizontal")
+                    {
+                        var rows = document.getElementsByTagName("tr");
+                        for(let i = 0; i < rows.length; i++)
+                        {
+                            if(i == line_location[1])
+                            {
+                                rows[i].setAttribute("class", "winningline");
+                            }
+                        }
+                    }
+                    if(line_location[0] == "vertical")
+                    {
+                        //td is already in memory from above code
+                        td[parseInt(line_location[1])].setAttribute("class", "winningline");
+                        td[parseInt(line_location[1]) + 3].setAttribute("class", "winningline");
+                        td[parseInt(line_location[1]) + 6].setAttribute("class", "winningline");
+                    }
+                    if(line_location[0] == "X" && line_location[1] == 0)
+                    {
+                        td[0].setAttribute("class", "winningline");
+                        td[4].setAttribute("class", "winningline");
+                        td[8].setAttribute("class", "winningline");
+                    }
+                    if(line_location[0] == "X" && line_location[1] == 2)
+                    {
+                        td[2].setAttribute("class", "winningline");
+                        td[4].setAttribute("class", "winningline");
+                        td[6].setAttribute("class", "winningline");
+                    }
+
+                }
             }
 
         </script>
@@ -90,13 +150,21 @@
                         </table>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a href= "/?reset=on"><button id ="reset" type="button" class="btn btn-primary">Restart</button></a>
+
+                    </div>
+
+                </div>
             <?php endif; ?>
 
             <!--TO display if game is finished-->
             <?php if($_SESSION["gamefinished"]): ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <table>
+                        <!--adding a position attribute so javascript can reference this to apply css in winning line-->
+                        <table position = "<?= $_SESSION["end-data"]["line"]."-".$_SESSION["end-data"]["location"]?>">
                             <?php for($i = 0; $i < 3; $i++):?>
                                 <tr>
                                     <?php for($j = 0; $j < 3; $j++):?>
@@ -109,6 +177,12 @@
                                 </tr>
                             <?php endfor; ?>
                         </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a href= "/?reset=on"><button id ="reset" type="button" class="btn btn-primary">Restart</button></a>
                     </div>
                 </div>
             <?php endif; ?>

@@ -10,9 +10,12 @@
     }
 
     /*This function figures out if X or O has made a line
-    and the game is finished and used to stylize winning line 
-    returns: location index where the starts from
-            line format if its a vertical line, horizontal or a cross
+    and the game is finished and used to stylize winning line
+    returns: location index where the winning line starts from based on starting
+            starting index in case of horizontal or vertical line
+            and if its a cross then its either the first row index if line is [0][0][1][1][2][2]
+            or 2 incase of cross in [2][0][1][1][0][1] 
+            Line format if its a vertical line, horizontal or a cross
             returns key finished as true if game is finished */
     function isgamefinished()
     {

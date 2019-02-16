@@ -42,6 +42,12 @@
 
             //redirect();
         }
+        if(isset($_GET["reset"]))
+        {
+            session_unset();
+            session_destroy();
+            redirect();
+        }
 
     }
     else
