@@ -9,6 +9,11 @@
         exit;
     }
 
+    /*This function figures out if X or O has made a line
+    and the game is finished and used to stylize winning line 
+    returns: location index where the starts from
+            line format if its a vertical line, horizontal or a cross
+            returns key finished as true if game is finished */
     function isgamefinished()
     {
         for($i = 0; $i < 3; $i++)

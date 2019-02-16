@@ -65,30 +65,53 @@
                     <h1>tic tac toe</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table>
-                        <?php for($i = 0; $i < 3; $i++): ?>
-                            <tr>
-                                <?php for($j = 0; $j < 3; $j++): ?>
-                                    <!--Displaying board with moves and links to
-                                     players move according to whose turn it is in session-->
-                                    <?php if($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] == "None"): ?>
-                                        <!--Displaying links as get variable that can be parsed to figure out what move was done-->
-                                        <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
-                                    <?php elseif($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] !== "None"): ?>
-                                        <td><?= $_SESSION["board"][$i][$j] ?></td>
-                                    <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] == "None"): ?>
-                                        <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
-                                    <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] !== "None"): ?>
-                                        <td><?= $_SESSION["board"][$i][$j] ?></td>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                            </tr>
-                        <?php endfor; ?>
-                    </table>
+            <?php if(!$_SESSION["gamefinished"]): ?>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table>
+                            <?php for($i = 0; $i < 3; $i++): ?>
+                                <tr>
+                                    <?php for($j = 0; $j < 3; $j++): ?>
+                                        <!--Displaying board with moves and links to
+                                         players move according to whose turn it is in session-->
+                                        <?php if($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] == "None"): ?>
+                                            <!--Displaying links as get variable that can be parsed to figure out what move was done-->
+                                            <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
+                                        <?php elseif($_SESSION["turn"] == "X" && $_SESSION["board"][$i][$j] !== "None"): ?>
+                                            <td><?= $_SESSION["board"][$i][$j] ?></td>
+                                        <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] == "None"): ?>
+                                            <td><a href="/?move=<?= $i.$j ?>">Play <?= $_SESSION["turn"] ?></a> </td>
+                                        <?php elseif($_SESSION["turn"] == "O" && $_SESSION["board"][$i][$j] !== "None"): ?>
+                                            <td><?= $_SESSION["board"][$i][$j] ?></td>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                </tr>
+                            <?php endfor; ?>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
+            <!--TO display if game is finished-->
+            <?php if($_SESSION["gamefinished"]): ?>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table>
+                            <?php for($i = 0; $i < 3; $i++):?>
+                                <tr>
+                                    <?php for($j = 0; $j < 3; $j++):?>
+                                        <?php if($_SESSION["board"][$i][$j] == "O" || $_SESSION["board"][$i][$j] == "X"): ?>
+                                            <td><?= $_SESSION["board"][$i][$j] ?></td>
+                                        <?php else: ?>
+                                            <td></td>
+                                        <?php endif;?>
+                                    <?php endfor; ?>
+                                </tr>
+                            <?php endfor; ?>
+                        </table>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </body>
 </html>

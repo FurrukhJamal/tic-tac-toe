@@ -30,7 +30,10 @@
             if($result["finished"]== true)
             {
                 //Implement winning board
-                print("WONNNNNNNN");
+                $_SESSION["gamefinished"] = true;
+                // adding result recieved from isgamefinished() to add proper css
+                $_SESSION["end-data"] = $result;
+                redirect();
             }
             else
             {
@@ -49,6 +52,7 @@
                             ["None", "None", "None"]];
 
         $_SESSION["turn"] = "X";
+        $_SESSION["gamefinished"] = false;
 
 
     }
