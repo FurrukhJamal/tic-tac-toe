@@ -7,7 +7,7 @@
 
     if(isset($_SESSION["board"]))
     {
-        print_r($_SESSION);
+        //print_r($_SESSION);
         //isgamefinished();
 
         if(isset($_GET["move"]))
@@ -26,13 +26,14 @@
                 $_SESSION["turn"] = "X";
             }
             $result = isgamefinished();
-            print_r($result);
+            //print_r($result);
             if($result["finished"]== true)
             {
                 //Implement winning board
                 $_SESSION["gamefinished"] = true;
                 // adding result recieved from isgamefinished() to add proper css
                 $_SESSION["end-data"] = $result;
+                $_SESSION["winner"] = $result["winner"];
                 redirect();
             }
             else

@@ -16,24 +16,23 @@
             .winningline
             {
                 background-color: yellow;
-                width: inherit;
+                width:inherit;
             }
-
-
             .col-xs-12 table
             {
+                empty-cells: show;
                 text-align: center;
                 width: 70%;
-                background-color: red;
-                margin: 20px auto 0 auto;
+                margin: 10px auto 0 auto;
                 border-collapse: collapse;
             }
             .col-xs-12 table td
             {
                 text-transform: capitalize;
-                border: 2px solid black;
+                border: 3px solid black;
                 font-size: 100px;
-
+                width: 100px;
+                height: 150px;
             }
             .col-xs-12 table tr
             {
@@ -44,6 +43,7 @@
             {
                 font-size: 24px;
             }
+
             #reset
             {
                 margin: 20px auto 20px auto;
@@ -53,6 +53,11 @@
             {
                 color: white;
                 text-decoration: none;
+            }
+            #winnername
+            {
+                visibility: hidden;
+                font-size: 150%;
             }
 
 
@@ -113,7 +118,31 @@
                         td[6].setAttribute("class", "winningline");
                     }
 
+                    //blink the result only when in views a winners table is displayed
+                    var winner = document.getElementById("winnername");
+
+                    //change visibility of winners name button to visible
+                    winner.style.visibility = "visible";
+
+                    function blink() {
+                        if (winner.className == "btn btn-success btn-lg")
+                        {
+                            winner.className = "btn btn-default btn-lg";
+                        }
+                        else
+                        {
+                            winner.className = "btn btn-success btn-lg";
+                        }
+                    }
+                    if(window.getComputedStyle(winner).visibility == "visible")
+                    {
+                        setInterval(blink, 1000);
+                    }
                 }
+
+
+
+
             }
 
         </script>
@@ -125,7 +154,14 @@
                     <h1>tic tac toe</h1>
                 </div>
             </div>
+
             <?php if(!$_SESSION["gamefinished"]): ?>
+                <!--have this button hidden when game the is been played to take space which the button wud take in winning board display -->
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <button id = "winnername" type="button" class="btn btn-success btn-lg">winners name</button>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <table>
@@ -161,6 +197,12 @@
 
             <!--TO display if game is finished-->
             <?php if($_SESSION["gamefinished"]): ?>
+                <!--display button to show winner -->
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <button id = "winnername" type="button" class="btn btn-success btn-lg"><?=$_SESSION["winner"]?> WINS!!</button>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <!--adding a position attribute so javascript can reference this to apply css in winning line-->
