@@ -29,13 +29,30 @@
                 $_SESSION["turn"] = "X";
             }
 
-            //do cpus turn if player playing against cpu
-            if($_SESSION["cpu"])
-            {
-                cputurn($_SESSION["cpu-marker"]);
-            }
+
 
             $result = isgamefinished();
+
+            //do cpus turn if player playing against cpu
+            if($_SESSION["cpu"] && !isset($result["finished"]))
+            {
+                cputurn($_SESSION["cpu-marker"]);
+                //for the case if game gets finished after cpu turn
+                $result2 = isgamefinished();
+                if($result2["finished"]== true)
+                {
+                    //Implement winning board
+                    $_SESSION["gamefinished"] = true;
+                    // adding result recieved from isgamefinished() to add proper css
+                    $_SESSION["end-data"] = $result2;
+                    $_SESSION["winner"] = $result2["winner"];
+                    redirect();
+                }
+                else
+                {
+                    redirect();
+                }
+            }
             //print_r($result);
             if($result["finished"]== true)
             {

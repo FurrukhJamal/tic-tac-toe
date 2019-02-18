@@ -12,6 +12,7 @@
             {
                 text-transform: uppercase;
                 text-align: center;
+                margin-bottom: 0;
             }
             .winningline
             {
