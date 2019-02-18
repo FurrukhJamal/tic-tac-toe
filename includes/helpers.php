@@ -65,4 +65,55 @@
 
         return false;
     }
+
+    /*Expects $sybmol = "X" or "O"
+    Put a "X" or "O" in session["board"] on cpu behalf
+    modifiy $_SESSION["turn"]*/
+    function cputurn($symbol)
+    {
+        //Test to check if board is not full
+        $count = 0;
+        for($i = 0; $i < 3; $i++)
+        {
+            for($j = 0; $j < 3; $j++)
+            {
+                if($_SESSION["board"][$i][$j] == "None")
+                {
+                    $count += 1;
+                }
+            }
+        }
+
+        if($count > 0)
+        {
+            $flag = true;
+        }
+        else
+        {
+            $flag = false;
+        }
+
+        while($flag)
+        {
+            $row = rand(0,2);
+            $col = rand(0,2);
+            if($_SESSION["board"][$row][$col] == "None")
+            {
+                $_SESSION["board"][$row][$col] = $symbol;
+                break;
+            }
+
+        }
+
+        //change whose turn it is
+        if($_SESSION["turn"] == "X")
+        {
+            $_SESSION["turn"] = "O";
+        }
+        else
+        {
+            $_SESSION["turn"] = "X";
+        }
+
+    }
 ?>

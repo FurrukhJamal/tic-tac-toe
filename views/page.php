@@ -44,7 +44,7 @@
                 font-size: 24px;
             }
 
-            #reset
+            #reset , #cpu
             {
                 margin: 20px auto 20px auto;
                 width: 100px;
@@ -189,7 +189,10 @@
                 <div class="row">
                     <div class="col-xs-12 text-center">
                         <a href= "/?reset=on"><button id ="reset" type="button" class="btn btn-primary">Restart</button></a>
-
+                        <!--Display cpu button only when game has started-->
+                        <?php if(!$_SESSION["cpu"] && !$_SESSION["matchstarted"]):?>
+                            <a href= "/?cpu=on"><button id ="cpu" type="button" class="btn btn-primary">Cpu</button></a>
+                        <?php endif; ?>
                     </div>
 
                 </div>
